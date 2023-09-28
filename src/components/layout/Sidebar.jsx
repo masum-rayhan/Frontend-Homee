@@ -20,6 +20,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import HomeIcon from '@mui/icons-material/Home';
 import BoltIcon from '@mui/icons-material/Bolt';
 import { useNavigate } from "react-router-dom";
+import { useAppStore } from "../../utils/appStore";
 
 const drawerWidth = 240;
 
@@ -90,13 +91,18 @@ const Drawer = styled(MuiDrawer, {
 
 export default function Sidebar() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+//   const [open, setOpen] = React.useState(false);
+
+  const updateOpen = useAppStore((state) => state.updateOpen);
+  const open = useAppStore((state) => state.dopen);
+
 
   const navigation = useNavigate();
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      <Box height = {30} />
       {/* <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -118,7 +124,7 @@ export default function Sidebar() {
       </AppBar> */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={() => (setOpen(!open))}>
+          <IconButton>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
@@ -165,14 +171,14 @@ export default function Sidebar() {
                   justifyContent: "center",
                 }}
               >
-                <BoltIcon onClick={(() => navigation("/"))} />
+                <BoltIcon onClick={(() => navigation("/energy"))} />
               </ListItemIcon>
               <ListItemText primary="Energy" sx={{ opacity: open ? 1 : 0 }} onClick={(() => navigation("/energy"))} />
             </ListItemButton>
           </ListItem>
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -203,7 +209,7 @@ export default function Sidebar() {
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
