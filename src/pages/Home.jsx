@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/layout/Navbar";
-import { Sidebar } from "../components/layout";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Device, Sidebar } from "../components/layout";
+import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export const Home = () => {
+  // Example state for managing the light state
+  const [lights, setLights] = useState([
+    { isOn: true },
+    { isOn: false },
+  ]);
+
+  // Function to toggle the light state
+  const handleLightToggle = (index, newState) => {
+    const updatedLights = [...lights];
+    updatedLights[index].isOn = newState;
+    setLights(updatedLights);
+  };
+
   return (
     <>
       <Navbar />
@@ -25,51 +39,69 @@ export const Home = () => {
                     <Paper elevation={3} sx={{ padding: 2 }}>
                       <Typography variant="h6">Lights</Typography>
 
-                      {/* Light Item 1 */}
-                      <Grid container alignItems="center" spacing={2}>
-                        {/* Light Logo */}
-                        <Grid item xs={2}>
-                          {/* Replace this with your light logo */}
-                          {/* <img
-                            src="light_logo.png"
-                            alt="Light Logo"
-                            style={{ width: "100%" }}
-                          /> */}
+                      {/* Light Items */}
+                      <Stack spacing={2}>
+                        {/* Light Item 1 */}
+                        <Grid container alignItems="center">
+                          {/* Light Logo */}
+                          <Grid item xs={2}>
+                            <Device
+                              isOn={lights[0].isOn}
+                              onClick={(newState) =>
+                                handleLightToggle(0, newState)
+                              }
+                            />
+                          </Grid>
+                          {/* Room Name */}
+                          <Grid item xs={6}>
+                            <Typography variant="body1">Bedroom</Typography>
+                          </Grid>
+                          {/* Toggle Switch */}
+                          <Grid item xs={4}>
+                            {/* Replace with your toggle switch component */}
+                            {/* <ToggleSwitchComponent /> */}
+                          </Grid>
                         </Grid>
-                        {/* Room Name */}
-                        <Grid item xs={6}>
-                          <Typography variant="body1">Bedroom</Typography>
-                        </Grid>
-                        {/* Toggle Switch */}
-                        <Grid item xs={4}>
-                          {/* Replace with your toggle switch component */}
-                          {/* <ToggleSwitchComponent /> */}
-                        </Grid>
-                      </Grid>
 
-                      {/* Light Item 2 */}
-                      <Grid container alignItems="center" spacing={2}>
-                        {/* Light Logo */}
-                        <Grid item xs={2}>
-                          {/* Replace this with your light logo */}
-                          {/* <img
-                            src="light_logo.png"
-                            alt="Light Logo"
-                            style={{ width: "100%" }}
-                          /> */}
+                        {/* Light Item 2 */}
+                        <Grid container alignItems="center">
+                          {/* Light Logo */}
+                          <Grid item xs={2}>
+                            <Device
+                              isOn={lights[0].isOn}
+                              onClick={(newState) =>
+                                handleLightToggle(0, newState)
+                              }
+                            />
+                          </Grid>
+                          {/* Room Name */}
+                          <Grid item xs={6}>
+                            <Typography variant="body1">Kitchen</Typography>
+                          </Grid>
+                          {/* Toggle Switch */}
+                          <Grid item xs={4}>
+                            {/* Replace with your toggle switch component */}
+                            {/* <ToggleSwitchComponent /> */}
+                          </Grid>
                         </Grid>
-                        {/* Room Name */}
-                        <Grid item xs={6}>
-                          <Typography variant="body1">Kitchen</Typography>
-                        </Grid>
-                        {/* Toggle Switch */}
-                        <Grid item xs={4}>
-                          {/* Replace with your toggle switch component */}
-                          {/* <ToggleSwitchComponent /> */}
-                        </Grid>
-                      </Grid>
 
-                      {/* Add more light items here */}
+                        {/* Add more light items here */}
+                      </Stack>
+
+                      {/* Create New Device */}
+                      <Grid
+                        container
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          startIcon={<AddCircleIcon />} // Import AddIcon from MUI
+                        >
+                          Create New Device
+                        </Button>
+                      </Grid>
                     </Paper>
                   </Grid>
 
