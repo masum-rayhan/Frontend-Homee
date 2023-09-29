@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { deviceApi } from "../../apis";
+import { deviceReducer } from "./deviceSlice";
 
 const store = configureStore({
     reducer: {
