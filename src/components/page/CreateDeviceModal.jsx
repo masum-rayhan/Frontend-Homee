@@ -8,9 +8,6 @@ const CreateDeviceModal = ({ onClose }) => {
   const [deviceLocation, setDeviceLocation] = useState("");
 
   const handleCreateDevice = () => {
-    // Perform the logic to create a new device with the provided information
-    // This can include making an API call or updating local state
-
     // After successfully creating the device, close the modal
     onClose();
   };
@@ -26,7 +23,7 @@ const CreateDeviceModal = ({ onClose }) => {
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 4,
-          maxWidth: "80vw", // Adjust the width as needed
+          maxWidth: "80vw",
         }}
       >
         <Typography variant="h5">Create New Device</Typography>
