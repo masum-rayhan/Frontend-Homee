@@ -1,21 +1,41 @@
 import React, { useState } from "react";
 import Navbar from "../components/layout/Navbar";
-import { Device, Sidebar } from "../components/layout";
-import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Device, Sidebar, ToggleSwitch } from "../components/layout";
+import {
+  Box,
+  Button,
+  Fab,
+  Grid,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { CreateDeviceModal } from "../components/page";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   // Example state for managing the light state
-  const [lights, setLights] = useState([
-    { isOn: true },
-    { isOn: false },
-  ]);
+  const [lights, setLights] = useState([{ isOn: true }, { isOn: false }]);
+
+  const [isCreateDeviceModalOpen, setCreateDeviceModalOpen] = useState(false); // State for controlling the modal
 
   // Function to toggle the light state
   const handleLightToggle = (index, newState) => {
     const updatedLights = [...lights];
     updatedLights[index].isOn = newState;
     setLights(updatedLights);
+  };
+
+  const handleCreateDeviceClick = () => {
+    console.log("Create Device button clicked");
+    // Open the Create Device modal when the button is clicked
+    setCreateDeviceModalOpen(true);
+  };
+  const handleCloseDeviceModal = () => {
+    // Close the Create Device modal
+    setCreateDeviceModalOpen(false);
   };
 
   return (
@@ -58,8 +78,12 @@ export const Home = () => {
                           </Grid>
                           {/* Toggle Switch */}
                           <Grid item xs={4}>
-                            {/* Replace with your toggle switch component */}
-                            {/* <ToggleSwitchComponent /> */}
+                            <ToggleSwitch
+                              isOn={lights[0].isOn}
+                              onClick={(newState) =>
+                                handleLightToggle(0, newState)
+                              }
+                            />{" "}
                           </Grid>
                         </Grid>
 
@@ -87,20 +111,20 @@ export const Home = () => {
 
                         {/* Add more light items here */}
                       </Stack>
-
-                      {/* Create New Device */}
                       <Grid
                         container
                         justifyContent="center"
                         alignItems="center"
+                        sx={{ paddingTop: 2 }}
                       >
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          startIcon={<AddCircleIcon />} // Import AddIcon from MUI
-                        >
-                          Create New Device
-                        </Button>
+                        <IconButton onClick={handleCreateDeviceClick}>
+                          <AddCircleIcon />
+                        </IconButton>
+
+                        {/* Render the CreateDeviceModal */}
+                        {isCreateDeviceModalOpen && (
+                          <CreateDeviceModal onClose={handleCloseDeviceModal} />
+                        )}
                       </Grid>
                     </Paper>
                   </Grid>
